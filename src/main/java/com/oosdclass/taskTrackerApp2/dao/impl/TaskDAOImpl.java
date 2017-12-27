@@ -18,19 +18,17 @@ import com.oosdclass.taskTrackerApp2.model.Task;
 @Repository
 public class TaskDAOImpl implements TaskDAO {
 	
-	
-private JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate;
 	
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
-
 	@Override
 	public List<Task> retrieveAllTasks() {
 		try {
 			String sql = "select * from task";
 			List<Task> tasklist = jdbcTemplate.query(sql, new ResultSetExtractor<List<Task>>() {
-				
+			
 				@Override
 				public List<Task> extractData(ResultSet rs) throws SQLException, DataAccessException {
 					
@@ -51,7 +49,6 @@ private JdbcTemplate jdbcTemplate;
 			return null;
 		}
 	}
-	
 	@Override
 	public Task retrieveByTaskID(int taskID) {
 		try {
@@ -73,13 +70,15 @@ private JdbcTemplate jdbcTemplate;
 			return null;
 		}
 	}
-
 	@Override
 	public void saveTask(Task task) {
-		// TODO Auto-generated method stub
+		String sql = "Insert into task" +
+				"(description, assignedTo, status) VALUES (?, ?, ?)";
+		jdbcTemplate.update(sql, new Object[] {task.getDescription(),
+				task.getAssignedTo(), task.getStatus()
+		});
 		
 	}
-
 	
-
 }
+

@@ -6,6 +6,9 @@ import com.oosdclass.taskTrackerApp2.model.Task;
 
 public interface TaskService {
 	
-	
-	public List<Task> getAllTask();
+	List<Task> getAllTask();
+
+	//to be replaced with whatever the savetask method is
+	void saveTask(Task task);
+
 }

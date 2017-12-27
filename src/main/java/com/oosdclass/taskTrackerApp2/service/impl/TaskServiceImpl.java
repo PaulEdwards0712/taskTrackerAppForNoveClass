@@ -11,14 +11,22 @@ import com.oosdclass.taskTrackerApp2.service.TaskService;
 
 @Service
 public class TaskServiceImpl implements TaskService {
-
+	
 	@Autowired
 	TaskDAO taskdao;
 	
 	@Override
 	public List<Task> getAllTask() {
-		return taskdao.retrieveAllTasks();	
+		return taskdao.retrieveAllTasks();
+	}
+	//to be replaced by whatever the service layer creates - this is my attempt at the service layer!
+	@Override
+	public void saveTask(Task task) {
+		task.setStatus("OPEN");
+		task.setAssignedTo("UNASSIGNED");
+		taskdao.saveTask(task);
+	
+
+		
 	}
 }
-	
-	
