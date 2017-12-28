@@ -9,23 +9,50 @@ import com.oosdclass.taskTrackerApp2.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
-	
+
 	@Autowired
 	UserDAO userDAO;
+
 	
 	@Override
 	public boolean isUserValid(User user) {
 		
 		User userFromDb = userDAO.retrieveByUserName(user.getUsername());
 		
+		
+				if(user.getUsername().equals(userFromDb.getUsername()) &&
+						user.getPassword().equals(userFromDb.getPassword())) {
+			return true;
+		}
+		else {
+			return false;	
+		}
+		
+	}
+	@Override
+	public boolean doesUserExist(User user) {
+		
+		User userFromDb = userDAO.retrieveByUserName(user.getUsername());
+		
 		if(userFromDb == null) {
 			return false;
 		}
-		if(user.getUsername().equals(userFromDb.getUsername()) && user.getPassword().equals(userFromDb.getPassword())) {
+			
+		else {
+			return false;	
+		}
+		
+	}
+	@Override
+	public boolean isUserAdmin(User user) {
+		
+		User userFromDb = userDAO.retrieveByUserName(user.getUsername());
+		
+		if(userFromDb.getUsername().equals("admin")){
 			return true;
-		} else {
+		}
+		else {
 			return false;
 		}
-	}
-
+		}
 }
