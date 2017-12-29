@@ -12,6 +12,15 @@ import com.oosdclass.taskTrackerApp2.service.TaskService;
 @Service
 public class TaskServiceImpl implements TaskService {
 	
+	//create default properties
+	public static final String DEFAULT_STATUS = "OPEN";
+	public static final String DEFAULT_ASSIGNED = "UNASSIGNED";
+	
+	//create updated object using employee input
+	public static final String UPDATED_STATUS = "input here";
+	public static final String UPDATED_ASSIGNED = "input here";
+	
+	//Dependency Injection & Inversion Of Control
 	@Autowired
 	TaskDAO taskdao;
 	
@@ -19,14 +28,23 @@ public class TaskServiceImpl implements TaskService {
 	public List<Task> getAllTask() {
 		return taskdao.retrieveAllTasks();
 	}
-	//to be replaced by whatever the service layer creates - this is my attempt at the service layer!
+	//take the task created by admin - description only - 
+	//and add the default properties for status and assignedTo
 	@Override
 	public void saveTask(Task task) {
-		task.setStatus("OPEN");
-		task.setAssignedTo("UNASSIGNED");
+		task.setStatus(DEFAULT_STATUS);
+		task.setAssignedTo(DEFAULT_ASSIGNED);
 		taskdao.saveTask(task);
-	
-
-		
+	}
+	//update the status and assignedTo from the employee
+	@Override
+	public void updateTask(Task task) {
+		task.setStatus(UPDATED_STATUS);
+		task.setAssignedTo(UPDATED_ASSIGNED);
+		taskdao.updateTask(task);
+	}
+	@Override
+	public Task getByTaskId(int taskId) {
+		return taskdao.retrieveByTaskID(taskId);
 	}
 }

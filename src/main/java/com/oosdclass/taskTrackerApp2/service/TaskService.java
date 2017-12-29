@@ -1,4 +1,4 @@
-package com.oosdclass.taskTrackerApp2.service;
+package  com.oosdclass.taskTrackerApp2.service;
 
 import java.util.List;
 
@@ -8,7 +8,10 @@ public interface TaskService {
 	
 	List<Task> getAllTask();
 
-	//to be replaced with whatever the savetask method is
 	void saveTask(Task task);
+
+	void updateTask(Task task);
+	
+	Task getByTaskId(int taskID);
 
 }
