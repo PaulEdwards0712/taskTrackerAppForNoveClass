@@ -1,4 +1,4 @@
-<%@page  contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
@@ -22,6 +22,7 @@
 		<a href="${contextPath}/createTaskForm"
 						class="btn btn-primary btn-xs pull-right"><b>+</b> Add a new
 						task</a>
+<!-- The table to display list of tasks -->
 			<table class="table table-striped custab">		
 				<thead>
 					<tr>
@@ -31,15 +32,15 @@
 						<th>Assigned To</th>
 					</tr>
 				</thead>
-				<!-- This is where we are rendering from the array task and displaying on table with help of spring framework -->
+<!-- This is where we are rendering from the array task and displaying on table with help of spring framework -->
 				<c:forEach var="task" items="${taskList}">
 				<tr>
+<!-- note that the taskID is NOT hyperlinked for admin -->
 				<td>${task.taskID}</td>
 				<td>${task.description}</td>
 				<td>${task.status}</td>
 				<td>${task.assignedTo}</td>
 				</tr>
-					
 				</c:forEach>
 			</table>
 		</div>

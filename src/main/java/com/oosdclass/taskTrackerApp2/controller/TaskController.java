@@ -12,10 +12,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.oosdclass.taskTrackerApp2.model.Task;
 import com.oosdclass.taskTrackerApp2.service.TaskService;
 
+//Spring Framework: Controller
 @Controller
 public class TaskController {
 	
-	//Link the UI to the Service layer
+	//DI/IOC: Autowire the UI to the Service layer
 	@Autowired
 	TaskService taskService;
 	
@@ -29,11 +30,12 @@ public class TaskController {
 		return model;	
 	}
 	//GET: show the task view page - for EMPLOYEES
-	@RequestMapping(value="/empTasks")
-	public ModelAndView viewEmpTasks(ModelAndView model) {
+	@RequestMapping(value="/empTasks/{username}")
+	public ModelAndView viewEmpTasks(ModelAndView model, @PathVariable String username) {
 		//map list of tasks to table in view page
 		List<Task> taskList = taskService.getAllTask();
 		model.addObject(taskList);
+		model.addObject(username);
 		model.setViewName("empTask");
 		return model;	
 	}
@@ -55,12 +57,30 @@ public class TaskController {
 		return model;
 	}
 	//GET: show the employee-only "update task" form
-	@RequestMapping(value="/viewTask/{taskID}") 
-	public ModelAndView viewTask(ModelAndView model, @PathVariable int taskID) {	
+	@RequestMapping(value="/viewTask/{taskID}/{username}") 
+	public ModelAndView viewTask(ModelAndView model, @PathVariable int taskID, @PathVariable String username) {	
 		Task task = taskService.getByTaskId(taskID);
 		model.addObject(task);
+		model.addObject(username);
 		model.setViewName("viewTask");
 		return model;
 	}
-
+	//From View Task page: Button: ASSIGN TO ME - reroute to empTasks
+	@RequestMapping(value="/updateTask/{status}/{taskID}/{username}", method = RequestMethod.GET)
+	//use @PathVariable to pull variables from URL/use them as values for updated attributes
+	public ModelAndView updateStatus(@PathVariable int taskID, @PathVariable String status, @PathVariable String username) {
+		ModelAndView model=null;
+		taskService.updateTaskStatus(taskID, status, username);
+		model = new ModelAndView("redirect:/empTasks/{username}");
+		return model;
+	}
+	//From View Task page: Button: UPDATE STATUS: In Progress or Completed - reroute to empTasks
+	@RequestMapping(value="/updateTask/ASSIGN/{taskID}/{username}", method = RequestMethod.GET)
+	//use @PathVariable to pull variables from URL/use them as values for updated attributes
+	public ModelAndView updateAssignedTo(@PathVariable int taskID, @PathVariable String username) {
+		ModelAndView model=null;
+		taskService.updateTaskAssignedTo(taskID, username);
+		model = new ModelAndView("redirect:/empTasks/{username}");
+		return model;
+	}
 }

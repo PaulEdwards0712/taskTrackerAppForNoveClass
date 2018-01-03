@@ -2,10 +2,13 @@ package  com.oosdclass.taskTrackerApp2.model;
 
 public class Task {
 	
+	//the attributes of a task object
 	private int taskID;
 	private String description;
 	private String assignedTo;
 	private String status;
+	
+	//Getters and Setters:
 	
 	public int getTaskID() {
 		return taskID;
@@ -32,7 +35,6 @@ public class Task {
 		this.status = status;
 	}
 	
-	
-
 }
+
 	

@@ -6,14 +6,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="${contextPath}/resources/dist/css/bootstrap.css"
-	rel="stylesheet">
+<!-- link html to bootstrap stylesheet -->
+<link href="${contextPath}/resources/dist/css/bootstrap.css" rel="stylesheet">
 <title>Update Task</title>
 </head>
 <body>
 <div class="container">
-<!--This is button that goes to create task screen -->
 		<div class="row col-lg-6 col-md-offset-2 custyle">
+		
+<!-- this is the table that displays the info about the specific task -->
 			<table class="table table-striped custab">		
 				<thead>
 					<tr>
@@ -24,20 +25,25 @@
 					</tr>
 				</thead>
 				<tr>
-				<td><a href="${contextPath}/viewTask/${taskID}">${task.taskID}</a></td>
+				<td>${task.taskID}</td>
 				<td>${task.description}</td>
 				<td>${task.status}</td>
 				<td>${task.assignedTo}</td>
 				</tr>
-					
 			</table>
 		</div>
 	</div>
 	<div class="container">
 		<div class="row col-lg-6 col-md-offset-2">
-		<a href="#" class="btn"><i class="icon-user"></i> <strong>Assign To Me</strong></a>
-		<a href="#" class="btn"><i class="icon-edit"></i> <strong>IN PROGRESS</strong></a>
-		<a href="#" class="btn"><i class="icon-ok"></i> <strong>COMPLETE</strong></a>
+		
+<!-- these are buttons that will update the parameters of the specific task displayed -->
+		<a href="${contextPath}/updateTask/ASSIGN/${task.taskID}/${username}" class="btn btn-primary btn-block">
+			<i class="glyphicon glyphicon-user"></i><strong>Assign To Me</strong></a>
+		<a href="${contextPath}/updateTask/IN-PROGRESS/${task.taskID}/${username}" class="btn btn-warning btn-block">
+			<i class="glyphicon glyphicon-edit"></i> <strong>IN PROGRESS</strong></a>
+		<a href="${contextPath}/updateTask/COMPLETED/${task.taskID}/${username}" class="btn btn-success btn-block">
+			<i class="glyphicon glyphicon-ok"></i> <strong>COMPLETED</strong></a>
+		
 		</div>
 	</div>
 </body>
